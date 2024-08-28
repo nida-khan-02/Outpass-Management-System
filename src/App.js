@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
-import WardenDashboard from './components/WardenDashboard';
-import LoginComponent from './components/LoginComponent';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Components/Login';
+import StudentDashboard from './Components/StudentDashboard';
+import WardenDashboard from './Components/WardenDashboard';
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  const login = (userData) => {
-    setUser(userData);
-  };
-
-  const logout = () => {
-    setUser(null);
-  };
-
   return (
-    <div>
-      {user && user.role === 'warden' ? (
-        <WardenDashboard hostel={user.hostel} />
-      ) : (
-        <LoginComponent onLogin={login} />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        {/* <Route path="/outpass-form" element={<OutpassForm />} /> */}
+        {/* <Route path="/warden-login" element={<WardenLogin />} /> */}
+
+        <Route path="/warden-dashboard" element={<WardenDashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
 
 
 
