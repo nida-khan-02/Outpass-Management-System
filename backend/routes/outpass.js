@@ -1,7 +1,14 @@
+const express = require('express');
+const router = express.Router();  // Create a router instance
+const verifyToken = require('../middleware/verifyToken');
+const isWarden = require('../middleware/isWarden');
+const Outpass = require('../models/Outpass');
+
 router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
   try {
     const wardenHostel = req.user.hostelName;
-    const outpasses = await Outpass.find({ hostelName: wardenHostel });
+    const outpasses = await Outpass.find({ hostelName: wardenHostel })
+      .populate('student', 'college_id');
     res.status(200).json(outpasses);
   } catch (error) {
     console.error('Error fetching outpasses:', error);
