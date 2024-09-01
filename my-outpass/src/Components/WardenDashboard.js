@@ -77,6 +77,10 @@ const WardenDashboard = ({ hostel }) => {
       : "Invalid Date";
   };
 
+  const handleRemove = (id) => {
+    setOutpasses(outpasses.filter((outpass) => outpass._id !== id));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-4xl font-bold mb-8 text-black">Warden Dashboard</h2>
@@ -87,8 +91,29 @@ const WardenDashboard = ({ hostel }) => {
           {outpasses.map((outpass) => (
             <div
               key={outpass._id}
-              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 relative"
             >
+              {/* Cross button */}
+              <button
+                onClick={() => handleRemove(outpass._id)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-colors duration-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
               <div className="mb-4">
                 <h3 className="text-2xl font-semibold mb-2 text-indigo-600">
                   Name: {outpass.name}
@@ -120,8 +145,12 @@ const WardenDashboard = ({ hostel }) => {
               <div className="flex justify-between">
                 <button
                   onClick={() => handleApprove(outpass._id)}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ${outpass.status === 'approved' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={outpass.status === 'approved'}"
+                  className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ${
+                    outpass.status === "approved"
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                  disabled={outpass.status === "approved"}
                 >
                   {outpass.status === "approved" ? "Approved" : "Approve"}
 
@@ -129,8 +158,12 @@ const WardenDashboard = ({ hostel }) => {
                 </button>
                 <button
                   onClick={() => handleReject(outpass._id)}
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ${outpass.status === 'rejected' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={outpass.status === 'rejected'}"
+                  className={`bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ${
+                    outpass.status === "rejected"
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
+                  disabled={outpass.status === "rejected"}
                 >
                   {outpass.status === "rejected" ? "Rejected" : "Reject"}
 
