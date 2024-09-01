@@ -43,6 +43,32 @@ router.put('/api/outpass/:id', verifyToken, isWarden, async (req, res) => {
   }
 });
 
+//cody
+router.post('/api/outpass', verifyToken, async (req, res) => {
+  try {
+    const { fromDate, toDate, reason } = req.body;
+    const user = await User.findById(req.user.id);
+
+    const newOutpass = new Outpass({
+      studentId: req.user.id,
+      studentName: user.name,
+      college_id: user.college_id,
+      hostelName: user.hostelName,
+      fromDate,
+      toDate,
+      reason,
+      status: 'Pending'
+    });
+
+    await newOutpass.save();
+    res.status(201).json({ message: 'Outpass request submitted successfully', outpass: newOutpass });
+  } catch (error) {
+    console.error('Error creating outpass:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 module.exports = router;
 
 

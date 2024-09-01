@@ -22,6 +22,9 @@ const outpassSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  college_id: { 
+    type: String, required: true 
+  },
   hostelName: {
     type: String,
     required: true
