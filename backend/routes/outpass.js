@@ -8,7 +8,7 @@ router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
   try {
     const wardenHostel = req.user.hostelName;
     const outpasses = await Outpass.find({ hostelName: wardenHostel })
-      .populate('student', 'college_id');
+      .populate('student');
     res.status(200).json(outpasses);
   } catch (error) {
     console.error('Error fetching outpasses:', error);
@@ -52,7 +52,7 @@ router.post('/api/outpass', verifyToken, async (req, res) => {
     const newOutpass = new Outpass({
       studentId: req.user.id,
       studentName: user.name,
-      college_id: user.college_id,
+      // college_id: user.college_id,
       hostelName: user.hostelName,
       fromDate,
       toDate,
