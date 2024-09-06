@@ -7,17 +7,13 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    // Fetch the current user data when the component mounts
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await api.get('/api/user/current');
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.error('Error fetching current user:', error);
-      }
-    };
-
-    fetchCurrentUser();
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Verify token and set user
+      api.get('/api/auth/verify', { headers: { 'x-auth-token': token } })
+        .then(res => setCurrentUser(res.data))
+        .catch(err => localStorage.removeItem('token'));
+    }
   }, []);
 
   return (

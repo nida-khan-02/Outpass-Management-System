@@ -1,10 +1,4 @@
-
-
-
-
-//Cody
 import React, { useState } from 'react';
-// import axios from 'axios';
 import api from '../api/axios';
 
 const OutpassForm = ({ onSubmit }) => {
@@ -34,16 +28,11 @@ const OutpassForm = ({ onSubmit }) => {
 
     setIsLoading(true);
     try {
-      // const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/outpass`, formData);
       const response = await api.post('/api/outpass', formData);
       await api.post('/api/outpass', formData);
-      
-
       if (response.status === 201) {
         setMessage({ text: 'Outpass submitted successfully!', type: 'success' });
         onSubmit(response.data);
-      //cody
-      // setSubmitMessage('Form submitted successfully!');
 
         setFormData({
           name: '',
@@ -68,45 +57,6 @@ const OutpassForm = ({ onSubmit }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-
-//cody
-// import React, { useState } from 'react';
-// import api from '../api/axios';
-
-// const OutpassForm = () => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     rollNumber: '',
-//     hostel: '',
-//     reason: '',
-//     leaveDate: '',
-//     returnDate: '',
-//   });
-//   const [submitMessage, setSubmitMessage] = useState('');
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await api.post('/api/outpass', formData);
-//       setSubmitMessage('Form submitted successfully!');
-//       setFormData({
-//         name: '',
-//         rollNumber: '',
-//         hostel: '',
-//         reason: '',
-//         leaveDate: '',
-//         returnDate: '',
-//       });
-//     } catch (error) {
-//       console.error('Error submitting outpass:', error);
-//       setSubmitMessage('Failed to submit form. Please try again.');
-//     }
-//   };
 
   return (
     <form className="bg-white p-6 rounded shadow-md" onSubmit={handleSubmit}>
@@ -207,7 +157,7 @@ const OutpassForm = ({ onSubmit }) => {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 
         disabled={isLoading}
-      >Submit
+      >
         {isLoading ? 'Submitting...' : 'Submit'}
       </button>
     </form>

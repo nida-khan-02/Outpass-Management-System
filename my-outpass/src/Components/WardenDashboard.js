@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
-// import User from '../../backend/models/User';
 
-const WardenDashboard = ({ hostel }) => {
+const WardenDashboard = ({ hostel = '12s1' }) => {
   const [outpasses, setOutpasses] = useState([]);
 
   useEffect(() => {
-    fetchOutpasses();
-    const interval = setInterval(fetchOutpasses, 30000); // Refresh every 30 seconds
-    return () => clearInterval(interval);
+    if (hostel) {
+      fetchOutpasses();
+      const interval = setInterval(fetchOutpasses, 30000);
+      return () => clearInterval(interval);
+    }
   }, [hostel]);
 
   const fetchOutpasses = async () => {
     try {
-      const response = await api.get(
-        `/api/outpasses?hostel=${hostel}&status=pending`
-      );
-      // Assuming the response now includes college_id
-      console.log("Outpasses fetched:", response.data);
-      setOutpasses(response.data);
+      const response = await api.get(`/api/outpasses?status=pending`);
+      console.log("API response:", response.data);
+      const filteredOutpasses = response.data.filter(outpass => outpass.hostelName === hostel);
+      console.log("Filtered outpasses:", filteredOutpasses);
+      setOutpasses(filteredOutpasses);
     } catch (error) {
       console.error("Error fetching outpasses:", error);
     }
   };
-
-  // const handleApprove = async (id) => {
-  //   try {
-  //     await api.put(`/api/outpass/${id}`, { status: 'approved' });
-  //     fetchOutpasses();
-  //   } catch (error) {
-  //     console.error('Error approving outpass:', error);
-  //   }
-  // };
   const handleApprove = async (id) => {
     try {
       await api.put(`/api/outpass/${id}`, { status: "approved" });
@@ -44,15 +35,6 @@ const WardenDashboard = ({ hostel }) => {
       console.error("Error approving outpass:", error);
     }
   };
-
-  // const handleReject = async (id) => {
-  //   try {
-  //     await api.put(`/api/outpass/${id}`, { status: 'rejected' });
-  //     fetchOutpasses();
-  //   } catch (error) {
-  //     console.error('Error rejecting outpass:', error);
-  //   }
-  // };
   const handleReject = async (id) => {
     try {
       await api.put(`/api/outpass/${id}`, { status: "rejected" });
@@ -121,26 +103,10 @@ const WardenDashboard = ({ hostel }) => {
                 <p className="text-gray-600 mb-1">
                   Hostel: {outpass.hostelName}
                 </p>
-                <p className="text-gray-600 mb-1">
-                  Leaving Date:{" "}
-                  {new Date(outpass.leavingDate).toLocaleDateString()}
-                </p>
-
-                {/* <p className="text-gray-600 mb-1">Leaving Time: {new Date(outpass.leavingTime).toLocaleTimeString()}</p> */}
-                <p className="text-gray-600 mb-1">
-                  Leaving Time: {formatDateTime(outpass.leavingDate)}
-                </p>
-
-                <p className="text-gray-600 mb-1">
-                  Returning Date:{" "}
-                  {new Date(outpass.returningDate).toLocaleDateString()}
-                </p>
-                {/* <p className="text-gray-600 mb-1">Returning Time: {new Date(outpass.returningTime).toLocaleTimeString()}</p> */}
-                <p className="text-gray-600 mb-1">
-                  Returning Time: {formatDateTime(outpass.returningDate)}
-                </p>
-
-                <p className="text-gray-700 mb-4">{outpass.reason}</p>
+                <p><strong>Leaving Date:</strong> {new Date(outpass.leavingDate).toLocaleDateString()}</p>
+                <p><strong>Leaving Time:</strong> {outpass.leavingTime}</p>
+                <p><strong>Returning Date:</strong> {new Date(outpass.returningDate).toLocaleDateString()}</p>
+                <p><strong>Returning Time:</strong> {outpass.returningTime}</p>
               </div>
               <div className="flex justify-between">
                 <button

@@ -42,8 +42,6 @@ router.put('/api/outpass/:id', verifyToken, isWarden, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-//cody
 router.post('/api/outpass', verifyToken, async (req, res) => {
   try {
     const { fromDate, toDate, reason } = req.body;

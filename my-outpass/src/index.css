@@ -15,9 +15,6 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* background: url('./login/assets/image-asset.jpeg') no-repeat;
-  background-size: contain;
-  background-position: center; */
   background-color: blueviolet;
 }
 
