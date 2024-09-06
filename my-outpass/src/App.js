@@ -4,6 +4,7 @@ import Login from './Components/Login';
 import StudentDashboard from './Components/StudentDashboard';
 import WardenDashboard from './Components/WardenDashboard';
 
+
 function App() {
  
   return (
@@ -12,10 +13,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/warden-dashboard" element={<WardenDashboard  />} />
+        <Route path="/warden-dashboard" element={<WardenDashboard />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+
+
+

@@ -48,17 +48,6 @@ const WardenDashboard = ({ hostel = '12s1' }) => {
     }
   };
 
-  const formatDateTime = (dateTimeString) => {
-    if (!dateTimeString) return "Not specified";
-    const date = new Date(dateTimeString);
-    return date instanceof Date && !isNaN(date)
-      ? date.toLocaleString("en-US", {
-          dateStyle: "medium",
-          timeStyle: "short",
-        })
-      : "Invalid Date";
-  };
-
   const handleRemove = (id) => {
     setOutpasses(outpasses.filter((outpass) => outpass._id !== id));
   };
@@ -97,8 +86,8 @@ const WardenDashboard = ({ hostel = '12s1' }) => {
               </button>
 
               <div className="mb-4">
-              <p><strong>Name:</strong> {outpass.name}</p>
-              <p><strong>Hostel Name:</strong> {outpass.hostelName}</p>
+                <p><strong>Name:</strong> {outpass.name}</p>
+                <p><strong>Hostel Name:</strong> {outpass.hostelName}</p>
                 <p><strong>Leaving Date:</strong> {new Date(outpass.leavingDate).toLocaleDateString()}</p>
                 <p><strong>Leaving Time:</strong> {outpass.leavingTime}</p>
                 <p><strong>Returning Date:</strong> {new Date(outpass.returningDate).toLocaleDateString()}</p>

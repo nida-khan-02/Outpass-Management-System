@@ -35,7 +35,7 @@ mongoose.connect(MONGODB_URI, {
 // Routes
 app.post('/api/outpass', outpassController.createOutpass);
 app.get('/api/outpasses', outpassController.getOutpasses);
-//cody
+
 app.put('/api/outpass/:id', outpassController.updateOutpassStatus);
 
 
