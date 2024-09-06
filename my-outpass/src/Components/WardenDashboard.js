@@ -97,12 +97,8 @@ const WardenDashboard = ({ hostel = '12s1' }) => {
               </button>
 
               <div className="mb-4">
-                <h3 className="text-2xl font-semibold mb-2 text-indigo-600">
-                  Name: {outpass.name}
-                </h3>
-                <p className="text-gray-600 mb-1">
-                  Hostel: {outpass.hostelName}
-                </p>
+              <p><strong>Name:</strong> {outpass.name}</p>
+              <p><strong>Hostel Name:</strong> {outpass.hostelName}</p>
                 <p><strong>Leaving Date:</strong> {new Date(outpass.leavingDate).toLocaleDateString()}</p>
                 <p><strong>Leaving Time:</strong> {outpass.leavingTime}</p>
                 <p><strong>Returning Date:</strong> {new Date(outpass.returningDate).toLocaleDateString()}</p>
