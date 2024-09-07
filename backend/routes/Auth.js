@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+    // console.log('JWT_SECRET:', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmM5YzM5NjQ1YzY3MWM2ZDhhNmU1NjUiLCJjYXRlZ29yeSI6InN0dWRlbnQiLCJpYXQiOjE3MjU2NDM3MTB9.DmkN-jHAv_ftcRqnTMxgsCVAlN7kU_CDlDdnipobx64');
 
     // const token = jwt.sign({ userId: user._id, category: user.category }, process.env.JWT_SECRET,
     //   { expiresIn: '1h' });
@@ -52,12 +52,13 @@ router.post('/login', async (req, res) => {
 });
 router.get('/user', verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('-password');
+    const user = await User.findById(req.college_id).select('-password');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json(user);
   } catch (err) {
+    console.error('Error fetching user:', err);
     res.status(500).json({ error: err.message });
   }
 });

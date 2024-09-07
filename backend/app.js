@@ -19,7 +19,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', outpassRoutes);
 
-app.use('/api/auth', authRoutes);
+// app.use('/api/auth', authRoutes);
+app.use('/api/auth', require('./routes/Auth'));
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/foodDelivery';

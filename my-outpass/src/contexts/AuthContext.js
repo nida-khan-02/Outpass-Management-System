@@ -4,7 +4,7 @@ import api from '../api';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setCurrentUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );

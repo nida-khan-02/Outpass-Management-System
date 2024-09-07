@@ -137,7 +137,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
 
-const WardenDashboard = ({ hostel }) => {
+const WardenDashboard = ({ hostel = '12s1'}) => {
   const [outpasses, setOutpasses] = useState([]);
 
   useEffect(() => {
@@ -146,7 +146,7 @@ const WardenDashboard = ({ hostel }) => {
       const interval = setInterval(fetchOutpasses, 30000);
       return () => clearInterval(interval);
     }
-  }, [hostel]);
+  }, );
 
   const fetchOutpasses = async () => {
     try {

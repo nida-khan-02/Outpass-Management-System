@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import OutpassForm from './OutpassForm';
-import api from '../api/axios';
+import api from '../api/api';
 
 const StudentDashboard = () => {
   const [outpasses, setOutpasses] = useState([]);
