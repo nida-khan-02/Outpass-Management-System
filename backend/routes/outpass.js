@@ -7,8 +7,11 @@ const Outpass = require('../models/Outpass');
 router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
   try {
     const wardenHostel = req.user.hostelName;
-    const outpasses = await Outpass.find({ hostelName: wardenHostel })
-      .populate('student');
+    const status = req.query.status || 'pending'; // Default to pending if not specified
+    const outpasses = await Outpass.find({ 
+      hostelName: wardenHostel,
+      status: status
+    }).populate('student');
     res.status(200).json(outpasses);
   } catch (error) {
     console.error('Error fetching outpasses in outpass.js:', error);
