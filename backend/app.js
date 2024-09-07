@@ -4,11 +4,13 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/Auth');
 const outpassRoutes = require('./routes/outpass');
+require('dotenv').config();
+
 
 
 const outpassController = require('./controllers/OutpassController');
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 
@@ -21,6 +23,7 @@ app.use('/api/auth', authRoutes);
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/foodDelivery';
+// const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
 
 mongoose.connect(MONGODB_URI, {

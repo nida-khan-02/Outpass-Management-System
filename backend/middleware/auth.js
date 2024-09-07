@@ -21,6 +21,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');  // Assuming User model is in ../models/User
 const router = express.Router();
 
+
 // Middleware for verifying JWT token
 const authMiddleware = (req, res, next) => {
   const token = req.header('Authorization')?.split(' ')[1];
@@ -55,6 +56,8 @@ router.get('/user', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 module.exports = router;
 

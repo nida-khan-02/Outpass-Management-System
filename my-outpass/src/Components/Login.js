@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import authService from '../Services/authService.js';
+// import authService from '../Services/authService.js';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../Services/authService.js';
+
 
 function Login() {
   const [college_id, setCollegeId] = useState('');
@@ -10,7 +12,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { token, user } = await authService.login({ college_id, password });
+      const { token, user } = await login({ college_id, password });
       localStorage.setItem('token', token);
       if (user.category === 'student') {
         navigate('/student-dashboard');
@@ -19,6 +21,7 @@ function Login() {
       }
     } catch (err) {
       alert('Login failed');
+      console.error('Login error:', err);
     }
   };
 

@@ -70,8 +70,7 @@ import axios from 'axios';
 import Login from './Components/Login';
 import StudentDashboard from './Components/StudentDashboard';
 import WardenDashboard from './Components/WardenDashboard';
-// require('dotenv').config();
-// import jwt from 'jsonwebtoken';
+
 
 
 
@@ -85,19 +84,12 @@ function App() {
   // Function to check if the user is authenticated
   const checkAuthentication = () => {
     const token = localStorage.getItem('token');
-   
-
-  // Assuming you store the JWT in localStorage
     return token !== null;
   };
 
   // Function to fetch the user's hostelName once they are logged in
   const fetchHostelName = async () => {
-    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-    // const response = await axios.get('http://localhost:5000/api/auth/user');
-    // const { user } = response.data;
-     
-      // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+   // Fetch the user's hostelName using the token
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -106,7 +98,7 @@ function App() {
             Authorization: `Bearer ${token}`
           }
         });
-        setHostelName(user.data.hostelName);
+        setHostelName(user.hostelName);
       } catch (error) {
         console.error('Error fetching hostelName:', error);
         // Handle token expiration or other auth errors here
