@@ -28,8 +28,8 @@ const OutpassForm = ({ onSubmit }) => {
 
     setIsLoading(true);
     try {
-      const response = await api.post('/api/outpass', formData);
-      await api.post('/api/outpass', formData);
+      const response = await api.post('http://localhost:5000/api/outpass', formData);
+      await api.post('http://localhost:5000/api/outpass', formData);
       if (response.status === 201) {
         setMessage({ text: 'Outpass submitted successfully!', type: 'success' });
         onSubmit(response.data);

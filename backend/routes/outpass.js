@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyToken = require('../middleware/verifyToken');
 const isWarden = require('../middleware/isWarden');
 const Outpass = require('../models/Outpass');
+const User = require('../models/User');
 
 router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
   try {
@@ -23,10 +24,10 @@ router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
 router.post('/api/outpass', verifyToken, async (req, res) => {
   try {
     const { fromDate, toDate} = req.body;
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.college_id);
 
     const newOutpass = new Outpass({
-      studentId: req.user.id,
+      studentId: req.user.college_id,
       studentName: user.name,
       hostelName: user.hostelName,
       fromDate,
