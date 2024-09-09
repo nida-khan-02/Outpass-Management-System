@@ -27,7 +27,7 @@ router.post('/api/outpass', verifyToken, async (req, res) => {
     const user = await User.findById(req.user.college_id);
 
     const newOutpass = new Outpass({
-      studentId: req.user.college_id,
+      // studentId: req.user.college_id,
       studentName: user.name,
       hostelName: user.hostelName,
       fromDate,
