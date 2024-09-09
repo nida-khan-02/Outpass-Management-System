@@ -8,13 +8,14 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // const token = localStorage.getItem('token');
+    
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmM5YzM5NjQ1YzY3MWM2ZDhhNmU1NjUiLCJjYXRlZ29yeSI6InN0dWRlbnQiLCJpYXQiOjE3MjU2NDM3MTB9.DmkN-jHAv_ftcRqnTMxgsCVAlN7kU_CDlDdnipobx64';
     if (token) {
-      api.get('/auth/user', { headers: { Authorization: `Bearer ${token}` } })
+      api.get('http://localhost:5000/api/auth/user', { headers: { Authorization: `Bearer ${token}` } })
         .then(res => setCurrentUser(res.data))
         .catch(err => {
           console.error('Error fetching user data:', err);
-          localStorage.removeItem('token');
+          // localStorage.removeItem('token');
         });
     }
   }, []);

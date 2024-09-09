@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { login } from '../Services/authService.js';
 import StudentDashboard from './StudentDashboard';
 import WardenDashboard from './WardenDashboard';
-import { AuthProvider } from '../contexts/AuthContext.js';
+// import { AuthProvider } from '../contexts/AuthContext.js';
 import { useAuth } from '../contexts/AuthContext';
 
 
@@ -27,9 +27,12 @@ function Login() {
         ...user,
         hostelName: user.hostelName || '12s1' // Ensure hostelName is set
       });
+      
+
       console.log('User:', user);
       console.log('Token:', token);
       console.log('hostelName:', user.hostelName);
+      console.log('college_id:', college_id);
     } catch (err) {
       alert('Login failed');
       console.error('Login error:', err);
@@ -38,13 +41,13 @@ function Login() {
 
   if (user) {
     return (
-      <AuthProvider>
+      // <AuthProvider>
       <Routes>
-        <Route path="/student-dashboard" element={user.category === 'student' ? <StudentDashboard /> : <Navigate to="/warden-dashboard" />} />
+        <Route path="/student-dashboard" element={user.category === 'student' ? <StudentDashboard userId={college_id}/> : <Navigate to="/warden-dashboard" />} />
         <Route path="/warden-dashboard" element={user.category === 'warden' ? <WardenDashboard hostel={user.hostelName}/> : <Navigate to="/student-dashboard" />} />
         <Route path="*" element={<Navigate to={user.category === 'student' ? "/student-dashboard" : "/warden-dashboard"} />} />
       </Routes>
-      </AuthProvider>
+      // </AuthProvider>
     );
   }
 
