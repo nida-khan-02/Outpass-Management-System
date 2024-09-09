@@ -1,13 +1,8 @@
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const jwt = require('jsonwebtoken');
+// require('dotenv').config();
 const verifyToken = async (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
   try {
-    // Get token from headers
     const authHeader = req.headers.authorization || req.headers.Authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "No token provided" });
@@ -15,16 +10,19 @@ const verifyToken = async (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.user;
-    next();
-    // Fetch user from database
+    const decoded = jwt.verify(token, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmM5YzM5NjQ1YzY3MWM2ZDhhNmU1NjUiLCJjYXRlZ29yeSI6InN0dWRlbnQiLCJpYXQiOjE3MjU2NDM3MTB9.DmkN-jHAv_ftcRqnTMxgsCVAlN7kU_CDlDdnipobx64');
+    
+    const user = await User.findById(decoded.college_id);
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
     req.user = {
-      id: User._id,
-      category: User.category,
-      hostelName: User.hostelName,
+      id: user.college_id,
+      category: user.category,
+      hostelName: user.hostelName,
     };
+    console.log(req.user);  
 
     next();
   } catch (error) {
