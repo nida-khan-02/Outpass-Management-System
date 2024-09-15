@@ -21,25 +21,27 @@ router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
 });
 
 
-router.post('/api/outpass', verifyToken, async (req, res) => {
+router.get('/outpasses/student/:college_id', verifyToken, async (req, res) => {
+  console.log("Fetching outpasses for college_id:", req.params.college_id); // Add this log
+
   try {
-    const { fromDate, toDate} = req.body;
-    const user = await User.findById(req.user.college_id);
-
-    const newOutpass = new Outpass({
-      // studentId: req.user.college_id,
-      studentName: user.name,
-      hostelName: user.hostelName,
-      fromDate,
-      toDate,
-      status: 'Pending'
-    });
-
-    await newOutpass.save();
-    res.status(201).json({ message: 'Outpass request submitted successfully', outpass: newOutpass });
+    const outpasses = await Outpass.find({ college_id: req.params.college_id });//changed re.params.college_id to req.params.id ; no changes observed
+    res.json(outpasses);
   } catch (error) {
-    console.error('Error creating outpass:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Error fetching outpasses', error: error.message });
+  }
+});
+
+router.post('/', verifyToken, async (req, res) => {
+  try {
+    const newOutpass = new Outpass({
+      ...req.body,
+      college_id: req.user.id // Ensure college_id is set from the authenticated user
+    });
+    const savedOutpass = await newOutpass.save();
+    res.status(201).json(savedOutpass);
+  } catch (error) {
+    res.status(400).json({ message: 'Error creating outpass', error: error.message });
   }
 });
 

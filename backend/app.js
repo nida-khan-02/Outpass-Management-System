@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const authRoutes = require('./routes/Auth');
 const outpassRoutes = require('./routes/outpass');
 require('dotenv').config();
@@ -15,7 +15,14 @@ const outpassController = require('./controllers/OutpassController');
 const app = express();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // or whatever your frontend URL is
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+
+}));
 app.use(express.json());
 app.use('/api', outpassRoutes);
 

@@ -5,8 +5,12 @@ import Login from './Components/Login';
 // import StudentDashboard from './Components/StudentDashboard';
 // import WardenDashboard from './Components/WardenDashboard';
 import { AuthProvider } from './contexts/AuthContext';
+// import { useNavigate } from 'react-router-dom';
+
 
 function App() {
+  // const Navigate = useNavigate();
+
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
   // // const [hostelName, setHostelName] = useState(null);
  
@@ -51,18 +55,25 @@ function App() {
   // }, [isAuthenticated]);
  
   return (
-    <AuthProvider>
     <Router>
+    <AuthProvider>
+  
       <Routes>
         <Route path="*" element={<Login />} />
           {/* <>
             <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/warden-dashboard" element={<WardenDashboard hostel={hostelName} />} />
           </> */}
+
+{/* <Route path="/login" element={<Login />} />
+          <Route path="/student-dashboard" element={<StudentDashboard />} />
+          <Route path="/warden-dashboard" element={<WardenDashboard />} />
+          <Route path="*" element={<Navigate to="/login" />} /> */}
         
       </Routes>
-    </Router>
     </AuthProvider>
+    </Router>
+
   );
 }
 

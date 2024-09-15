@@ -1,18 +1,23 @@
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
-// require('dotenv').config();
+require('dotenv').config();
 const verifyToken = async (req, res, next) => {
+
+
   try {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token: ", decoded);
+    const user = await User.findOne({ _id: decoded.userId });
+
     const authHeader = req.headers.authorization || req.headers.Authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "No token provided" });
     }
+    // const token = req.header('Authorization').replace('Bearer ', '');
 
-    const token = authHeader.split(" ")[1];
-
-    const decoded = jwt.verify(token, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmM5YzM5NjQ1YzY3MWM2ZDhhNmU1NjUiLCJjYXRlZ29yeSI6InN0dWRlbnQiLCJpYXQiOjE3MjU2NDM3MTB9.DmkN-jHAv_ftcRqnTMxgsCVAlN7kU_CDlDdnipobx64');
+  
     
-    const user = await User.findById(decoded.college_id);
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
@@ -22,10 +27,22 @@ const verifyToken = async (req, res, next) => {
       category: user.category,
       hostelName: user.hostelName,
     };
-    console.log(req.user);  
+    console.log("req.user in verifyToken middleware: ",req.user);  
+    // currentUser=setCurrentUser(user);
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        if (err.name === 'TokenExpiredError') {
+          return res.status(401).json({ message: "Token expired", expired: true });
+        }
+        return res.status(401).json({ message: "Invalid token" });
+      }
+      req.user = decoded;
+      next();
+    });
 
     next();
-  } catch (error) {
+  }  catch (error) {
     console.error("Error in verifyToken middleware:", error);
     return res.status(401).json({ message: "Invalid token" });
   }

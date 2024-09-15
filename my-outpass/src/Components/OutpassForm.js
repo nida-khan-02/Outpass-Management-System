@@ -1,17 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import api from '../api/api';
+import { useAuth } from '../contexts/AuthContext';
+
 
 const OutpassForm = ({ onSubmit }) => {
+  // const { user } = useAuth();
+  const { currentUser, loading } = useAuth();
+  
+
   const [formData, setFormData] = useState({
     name: '',
+    college_id: currentUser.id? currentUser.id : '',  
     hostelName: '',
     leavingDate: '',
     leavingTime: '',
     returningDate: '',
     returningTime: ''
   });
+
+  
   const [message, setMessage] = useState({ text: '', type: '' });
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!loading && currentUser) {
+      setFormData(prevState => ({
+        ...prevState,
+        college_id: currentUser.id || ''
+      }));
+    }
+  }, [currentUser, loading]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!currentUser) {
+    return <div>Please log in to access this form.</div>;
+  }
   
 
   const validateForm = () => {
@@ -25,23 +51,35 @@ const OutpassForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    if (loading || !currentUser) {
+      setMessage({ text: 'User data is not available. Please try again later.', type: 'error' });
+      return;
+    }
 
     setIsLoading(true);
     try {
-      const response = await api.post('http://localhost:5000/api/outpass', formData);
-      await api.post('http://localhost:5000/api/outpass', formData);
+      const outpassData = {
+        ...formData,
+        student: currentUser.id
+      };
+
+      const response = await api.post('http://localhost:5000/api/outpass', outpassData);
+
       if (response.status === 201) {
         setMessage({ text: 'Outpass submitted successfully!', type: 'success' });
         onSubmit(response.data);
 
-        setFormData({
+        // Reset form fields except college_id
+
+        setFormData(prevState => ({
+          ...prevState,
           name: '',
           hostelName: '',
           leavingDate: '',
           returningDate: '',
           leavingTime: '',
           returningTime: '',
-        });
+        }));
       }
     } catch (error) {
       console.error('Error submitting outpass:', error);
