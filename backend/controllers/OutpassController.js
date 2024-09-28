@@ -2,7 +2,6 @@ const Outpass = require('../models/Outpass');
 
 exports.createOutpass = async (req, res) => {
   try {
-    // const newOutpass = new Outpass(req.body);
     const newOutpass = new Outpass({ ...req.body, status: 'pending' });
     const savedOutpass = await newOutpass.save();
     res.status(201).json(savedOutpass);

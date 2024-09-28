@@ -14,7 +14,6 @@ const verifyToken = async (req, res, next) => {
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "No token provided" });
     }
-    // const token = req.header('Authorization').replace('Bearer ', '');
 
   
     
@@ -28,7 +27,6 @@ const verifyToken = async (req, res, next) => {
       hostelName: user.hostelName,
     };
     console.log("req.user in verifyToken middleware: ",req.user);  
-    // currentUser=setCurrentUser(user);
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {

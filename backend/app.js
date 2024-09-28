@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const dotenv = require('dotenv');
 const authRoutes = require('./routes/Auth');
 const outpassRoutes = require('./routes/outpass');
 require('dotenv').config();
@@ -10,14 +9,9 @@ require('dotenv').config();
 
 const outpassController = require('./controllers/OutpassController');
 
-// dotenv.config();
-
 const app = express();
-
-// Middleware
-// app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000', // or whatever your frontend URL is
+  origin: 'http://localhost:3000', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -25,14 +19,10 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use('/api', outpassRoutes);
-
-// app.use('/api/auth', authRoutes);
 app.use('/api/auth', require('./routes/Auth'));
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/foodDelivery';
-// const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
@@ -43,12 +33,11 @@ mongoose.connect(MONGODB_URI, {
   console.error('MongoDB connection error:', err);
   process.exit(1);
 });
+
 // Routes
 app.post('/api/outpass', outpassController.createOutpass);
 app.get('/api/outpasses', outpassController.getOutpasses);
-
 app.put('/api/outpass/:id', outpassController.updateOutpassStatus);
-
 
 
 // Error handling middleware

@@ -22,10 +22,10 @@ router.get('/api/outpasses', verifyToken, isWarden, async (req, res) => {
 
 
 router.get('/outpasses/student/:college_id', verifyToken, async (req, res) => {
-  console.log("Fetching outpasses for college_id:", req.params.college_id); // Add this log
+  console.log("Fetching outpasses for college_id:", req.params.college_id); 
 
   try {
-    const outpasses = await Outpass.find({ college_id: req.params.college_id });//changed re.params.college_id to req.params.id ; no changes observed
+    const outpasses = await Outpass.find({ college_id: req.params.college_id });
     res.json(outpasses);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching outpasses', error: error.message });
@@ -36,7 +36,7 @@ router.post('/', verifyToken, async (req, res) => {
   try {
     const newOutpass = new Outpass({
       ...req.body,
-      college_id: req.user.id // Ensure college_id is set from the authenticated user
+      college_id: req.user.id 
     });
     const savedOutpass = await newOutpass.save();
     res.status(201).json(savedOutpass);

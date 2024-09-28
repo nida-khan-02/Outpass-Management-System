@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext';
 
 
 const OutpassForm = ({ onSubmit }) => {
-  // const { user } = useAuth();
   const { currentUser, loading } = useAuth();
   
 
@@ -119,21 +118,6 @@ const OutpassForm = ({ onSubmit }) => {
           aria-label="Name"
         />
       </div>
-
-      {/* <div className="mb-4">
-        <label htmlFor="college_id" className="block text-gray-700 text-sm font-bold mb-2">College id</label>
-        <input
-          id="college_id"
-          type="text"
-          name="College Id"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder='College Id'
-          className="border rounded w-full py-2 px-3 text-gray-700"
-          required
-          aria-label="College Id"
-        />
-      </div> */}
 
       <div className="mb-4">
         <label htmlFor="hostelName" className="block text-gray-700 text-sm font-bold mb-2">Hostel Name</label>

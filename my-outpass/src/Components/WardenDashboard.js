@@ -3,7 +3,11 @@ import api from "../api";
 
 const WardenDashboard = ({ hostel }) => {
   const [outpasses, setOutpasses] = useState([]);
-
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':');
+    const date = new Date(2000, 0, 1, hours, minutes);
+    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  };
   useEffect(() => {
     if (hostel) {
       fetchOutpasses();
@@ -64,9 +68,9 @@ const WardenDashboard = ({ hostel }) => {
                 <p><strong>Name:</strong> {outpass.name}</p>
                 <p><strong>Hostel Name:</strong> {outpass.hostelName}</p>
                 <p><strong>Leaving Date:</strong> {new Date(outpass.leavingDate).toLocaleDateString()}</p>
-                <p><strong>Leaving Time:</strong> {outpass.leavingTime}</p>
+                <p><strong>Leaving Time:</strong> {formatTime(outpass.leavingTime)}</p>
                 <p><strong>Returning Date:</strong> {new Date(outpass.returningDate).toLocaleDateString()}</p>
-                <p><strong>Returning Time:</strong> {outpass.returningTime}</p>
+                <p><strong>Returning Time:</strong> {formatTime(outpass.returningTime)}</p>
               </div>
               <div className="flex justify-between">
               <button
@@ -79,8 +83,6 @@ const WardenDashboard = ({ hostel }) => {
                   disabled={outpass.status === "approved"}
                 >
                   {outpass.status === "approved" ? "Approved" : "Approve"}
-
-                  {/* Approve */}
                 </button>
                 <button
                   onClick={() => handleReject(outpass._id)}
@@ -92,8 +94,6 @@ const WardenDashboard = ({ hostel }) => {
                   disabled={outpass.status === "rejected"}
                 >
                   {outpass.status === "rejected" ? "Rejected" : "Reject"}
-
-                  {/* Reject */}
                 </button>
               </div>
             </div>

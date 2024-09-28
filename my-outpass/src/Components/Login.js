@@ -3,9 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { login } from '../Services/authService.js';
 import StudentDashboard from './StudentDashboard';
 import WardenDashboard from './WardenDashboard';
-// import { AuthProvider } from '../contexts/AuthContext.js';
 import { useAuth } from '../contexts/AuthContext';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -21,7 +19,6 @@ function Login() {
   const { setCurrentUser } = useAuth();
   const [hostelName, setHostelName] = useState('');
   const [user, setUser] = useState(null);
-  // const navigate = useNavigate();
 
 
   const handleLogin = async (e) => {
@@ -31,10 +28,9 @@ function Login() {
       localStorage.setItem('token', token);
       setCurrentUser(user);
       setHostelName(user.hostelName);
-      // navigate(user.category === 'student' ? '/student-dashboard' : '/warden-dashboard');
       setUser({
         ...user,
-        hostelName: user.hostelName || '12s1' // Ensure hostelName is set
+        hostelName: user.hostelName || '13s1' 
       });
       
 
@@ -50,13 +46,11 @@ function Login() {
 
   if (user) {
     return (
-      // <AuthProvider>
-      <Routes>
+     <Routes>
         <Route path="/student-dashboard" element={user.category === 'student' ? <StudentDashboard userId={college_id}/> : <Navigate to="/warden-dashboard" />} />
         <Route path="/warden-dashboard" element={user.category === 'warden' ? <WardenDashboard hostel={user.hostelName}/> : <Navigate to="/student-dashboard" />} />
         <Route path="*" element={<Navigate to={user.category === 'student' ? "/student-dashboard" : "/warden-dashboard"} />} />
       </Routes>
-    //  </AuthProvider>
     );
   }
 

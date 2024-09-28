@@ -22,24 +22,11 @@ api.interceptors.response.use(
         originalRequest.headers['Authorization'] = `Bearer ${token}`;
         return api(originalRequest);
       } catch (refreshError) {
-        // Handle refresh token error (e.g., redirect to login)
         return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
   }
 );
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//       config.headers['Authorization'] = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 export default api;
