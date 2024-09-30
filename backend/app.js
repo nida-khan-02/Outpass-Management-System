@@ -22,7 +22,7 @@ app.use('/api', outpassRoutes);
 app.use('/api/auth', require('./routes/Auth'));
 
 // MongoDB connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/foodDelivery';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://nida02k:U63PY33YY3g2flJQ@database.ul9ut.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Database';
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,

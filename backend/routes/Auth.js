@@ -31,8 +31,10 @@ router.post('/register', async (req, res) => {
 // Login a user
 router.post('/login', async (req, res) => {
   try {
+    console.log('Received login request');
     const { college_id, password } = req.body;
     const user = await User.findOne({ college_id });
+    console.log('User found:', user);
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).json({ error: 'Invalid credentials' });
