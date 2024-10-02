@@ -21,4 +21,4 @@
         "dest": "${FRONTEND_DEST}/$1"
       }
     ]
-  }
+ }
