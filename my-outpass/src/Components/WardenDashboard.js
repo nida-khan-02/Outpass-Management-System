@@ -28,7 +28,7 @@ const WardenDashboard = ({ hostel }) => {
 
   const handleApprove = async (id) => {
     try {
-      await api.put(`http://localhost:5000/api/outpass/${id}`, { status: "approved" });
+      await api.put(`https://outpass-management-system-backend.vercel.app/api/outpass/${id}`, { status: "approved" });
       setOutpasses(outpasses.map((outpass) =>
         outpass._id === id ? { ...outpass, status: "approved" } : outpass
       ));
@@ -39,7 +39,7 @@ const WardenDashboard = ({ hostel }) => {
 
   const handleReject = async (id) => {
     try {
-      await api.put(`http://localhost:5000/api/outpass/${id}`, { status: "rejected" });
+      await api.put(`https://outpass-management-system-backend.vercel.app/api/outpass/${id}`, { status: "rejected" });
       setOutpasses(outpasses.map((outpass) =>
         outpass._id === id ? { ...outpass, status: "rejected" } : outpass
       ));
