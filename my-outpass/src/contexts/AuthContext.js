@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const response = await axios.get('http://localhost:5000/auth/user', {
+        const response = await axios.get('https://outpass-management-system-backend.vercel.app/auth/user', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
 
     
     if (token) {
-      api.get('http://localhost:5000/auth/user', 
+      api.get('https://outpass-management-system-backend.vercel.app/auth/user', 
         { headers: { 
           Authorization: `Bearer ${token}` 
         } 
