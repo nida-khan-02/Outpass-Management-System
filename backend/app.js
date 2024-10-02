@@ -42,6 +42,7 @@ app.put('/api/outpass/:id', outpassController.updateOutpassStatus);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
+  console.log("Welcome to backend");
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
