@@ -62,7 +62,7 @@ const OutpassForm = ({ onSubmit }) => {
         student: currentUser.id
       };
 
-      const response = await api.post('http://localhost:5000/api/outpass', outpassData);
+      const response = await api.post('https://outpass-management-system-backend.vercel.app/api/outpass', outpassData);
 
       if (response.status === 201) {
         setMessage({ text: 'Outpass submitted successfully!', type: 'success' });
