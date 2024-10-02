@@ -25,8 +25,6 @@ app.use('/api/auth', require('./routes/Auth'));
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://nida02k:U63PY33YY3g2flJQ@database.ul9ut.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Database';
 
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
 })
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => {
