@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/outpass';
+const API_URL = 'https://outpass-management-system-backend.vercel.app/api/outpass';
 
 const apply = async (details) => {
   const response = await axios.post(`${API_URL}/apply`, details);
