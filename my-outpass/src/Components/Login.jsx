@@ -3,13 +3,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { login } from '../Services/authService.js';
 import StudentDashboard from './StudentDashboard';
 import WardenDashboard from './WardenDashboard';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext.js';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-
-
-
-
 
 
 
