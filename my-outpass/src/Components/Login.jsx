@@ -41,10 +41,11 @@ function Login() {
   };
 
   if (user) {
+    console.log(user,"user");
     return (
      <Routes>
-        <Route path="/student-dashboard" element={user.category === 'student' ? <StudentDashboard userId={college_id}/> : <Navigate to="/warden-dashboard" />} />
-        <Route path="/warden-dashboard" element={user.category === 'warden' ? <WardenDashboard hostel={user.hostelName}/> : <Navigate to="/student-dashboard" />} />
+        <Route path="/student-dashboard" element={user.category === 'student' ? <StudentDashboard userId={college_id}/> : <Navigate to="/student-dashboard" />} />
+        <Route path="/warden-dashboard" element={user.category === 'warden' ? <WardenDashboard hostel={user.hostelName}/> : <Navigate to="/warden-dashboard" />} />
         <Route path="*" element={<Navigate to={user.category === 'student' ? "/student-dashboard" : "/warden-dashboard"} />} />
       </Routes>
     );
