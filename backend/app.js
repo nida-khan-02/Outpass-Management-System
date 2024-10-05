@@ -11,7 +11,7 @@ const outpassController = require('./controllers/OutpassController');
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: 'https://outpass-management-system-sigma.vercel.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
