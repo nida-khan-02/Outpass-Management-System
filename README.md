@@ -44,24 +44,24 @@ The system consists of two main components:
 ### Installation
 
 1. Clone the repository:
-   ```bash git clone https://github.com/your-username/outpass-management-system.git   ```
+   ``` git clone https://github.com/your-username/outpass-management-system.git   ```
 
 
 2. Install backend dependencies:
- ```bash cd backend npm install ```
+ ``` cd backend npm install ```
 
 3. Install frontend dependencies:
- ```bash cd my-outpass npm install ```
+ ``` cd my-outpass npm install ```
 
 
 4. Set up environment variables:
 Create .env files in both backend and my-outpass directories with necessary configurations.
 
 5. Start the backend server:
- ```bash cd backend npm start ```
+ ``` cd backend npm start ```
 
 6. Start the frontend application:
- ```bash cd my-outpass npm start ```
+ ``` cd my-outpass npm start ```
 
 
 7. Visit http://localhost:3000 to access the application.
